@@ -1,2 +1,6 @@
 #!/bin/bash
-echo "ibase=water;obase=bestchol;$WATER+$STIR" | bc
+echo "bestchol=echo $WATER $STIR | awk '{printf "%d\n", strtonum("0x"$1) + strtonum("0x"$2)}' | awk '{printf "%x", $1}'" | bc
+
+
+
+
