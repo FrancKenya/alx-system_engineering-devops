@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+# Displays a process own PID
+
+echo "$$"
