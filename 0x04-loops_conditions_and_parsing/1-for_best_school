@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 # Uses for loop to write a string 10 times.
 
-for (( i = 0; i <10; i++ )); do
+cnt=10
+for (( i=0; i<$cnt; i++ ))
+do
   echo "Best School"
 done
