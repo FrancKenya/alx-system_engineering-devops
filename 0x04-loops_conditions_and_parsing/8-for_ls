@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+# Display contents of current directory in list format
+# Does not show hidden part
+
+list=$(ls)
+for content in $list; do
+	echo "$content" | cut -d '-' -f2
+done
