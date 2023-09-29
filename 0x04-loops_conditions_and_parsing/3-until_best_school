@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# Uses until loop to display a string 10 times.
 
 cnt=0
 
