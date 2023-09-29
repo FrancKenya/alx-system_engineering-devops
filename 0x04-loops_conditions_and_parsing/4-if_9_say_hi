@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+# Displays the use of while loop and if statement in writing strings.
+
+cnt=1
+
+while [ $cnt -le 10 ]; do
+	if [ $cnt -eq 9 ]; then
+		echo "Best School"
+		echo "Hi"
+	else
+		echo "Best School"
+	fi
+	(( cnt++ ))
+done
