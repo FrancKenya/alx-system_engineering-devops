@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+# Define the path to the /etc/passwd file
+passwd_file="/etc/passwd"
+
+while read -r passwd
+do
+	echo "$passwd" | cut -d ':' -f1, 3, 6
+done < "$passwd_file"
