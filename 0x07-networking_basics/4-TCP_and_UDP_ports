@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+# Displays listening post
+# Shows listening sockets
+# Show PID and name of the program where the socket belong
+
+netstat -l --program
