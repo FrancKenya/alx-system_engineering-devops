@@ -3,4 +3,4 @@
 # uses -b to specify the number of bits and -N for the passphrase protecting
 # -f is used to specify the path
 
-ssh-keygen -b 4096 -N 'betty' -f ~/.ssh/school
+ssh-keygen -b 4096 -N 'betty' -f ./school
