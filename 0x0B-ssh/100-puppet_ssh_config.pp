@@ -7,6 +7,6 @@ file { '/etc/ssh/ssh_config':
         HostName 54.227.197.97
         User ubuntu
         IdentityFile ~/.ssh/school
+        PasswordAuthentication no
     ",
-    mode    => '0600',
 }
