@@ -9,10 +9,10 @@ if [ "$#" -ne 4 ]; then
 fi
 # Assigning arguments
 
-ssh_keys="$1"
-path_to_file="$2"
+ssh_keys="$4"
+path_to_file="$1"
 username="$3"
-server_ip="$4"
+server_ip="$2"
 
 # scp command that removes strick host key checking before transfering
 
