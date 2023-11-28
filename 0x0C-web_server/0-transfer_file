@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+# A bash script that transfers a file from client to server
+
+# Handling less than four argumnents
+
+if [ "$#" -lt 4 ]; then
+	echo "Usage: 0-transfer_file PATH_TO_FILE IP USERNAME PATH_TO_SSH_KEY"
+	exit 1
+fi
+# Assigning arguments
+
+ssh_keys="$1"
+path_to_file="$2"
+username="$3"
+server_ip="$4"
+
+# scp command
+
+scp -o StrictHostKeyChecking=no -i "$ssh_keys" "$path_to_file" "$username@$server_ip": ~/
