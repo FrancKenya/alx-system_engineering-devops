@@ -17,3 +17,4 @@ server_ip="$4"
 # scp command that removes strick host key checking before transfering
 
 scp -o StrictHostKeyChecking=no -i "$ssh_keys" "$path_to_file" "$username@$server_ip":~/
+
