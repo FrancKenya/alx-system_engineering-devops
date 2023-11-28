@@ -14,9 +14,6 @@ path_to_file="$2"
 username="$3"
 server_ip="$4"
 
-# disable strict hosting key checking
-DISABLED_KEY_CHECK="-o StrictHostKeyChecking=no"
+# scp command that removes strick host key checking before transfering
 
-# scp command
-
-scp "$DISABLED_KEY_CHECK" -i "$ssh_keys" "$path_to_file" "$username@$server_ip": ~/
+scp -o StrictHostKeyChecking=no -i "$ssh_keys" "$path_to_file" "$username@$server_ip":~/
