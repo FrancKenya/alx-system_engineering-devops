@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+# Configures a new server by installing Nginx listening on port 80
+# When querying Nginx at its root / with a GET request (requesting a page,
+# using curl, it returns a page that contains the string Hello World!
+
+apt get update
+
+# uses -y flag to yes all prompts during installation
+
+apt get install -y nginx
+
+sed -i 's/listen 80 default_server;/listen 80;/g' /etc/nginx/sites-available/default
+
+sudo bash -c 'echo "Hello World!" > /var/www/html/index.html'
+
+service nginx restart
