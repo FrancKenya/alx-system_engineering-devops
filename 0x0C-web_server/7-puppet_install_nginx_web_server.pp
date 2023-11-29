@@ -1,38 +1,101 @@
-# A manifest that's used to configure a nginx server
-package {' nginx':
-        ensure   => installed;
+# installing nginx
+
+package { 'nginx':
+        ensure          => installed,
+        provider        => 'apt',
+        install_options => ['-y'],
 }
-exec {'update apt-get and install':
-    command  => 'sudo apt-get update && sudo apt-get install nginx'
-    path     =>  '/usr/bin:/usr/sbin:/bin',
-    provider =>  shell
+
+exec { 'delete html files':
+        command => 'sudo rm -rf /var/www/html/*.html',
+        path    => ['/usr/bin', '/usr/sbin', '/usr/bin/env'],
 }
-# Set up Nginx service
-service { 'nginx':
-    ensure => running,
-    enable => true,
+
+# starting nginx
+exec { 'start nginx':
+        command => 'sudo service nginx start',
+        path    => ['/usr/bin', '/usr/sbin', '/usr/bin/env'],
 }
-# Create a custom index.html page for the root URL
+
 file { '/var/www/html/index.html':
+        ensure  => present,
+        content =>
+'Hello World!
+',
+}
+
+# adding error 404 file
+file { '/var/www/html/error404.html':
     ensure  => present,
-    content => "Hello World!\n",
-    require => Package['nginx'],
+    content =>
+'Ceci n\'est pas une page
+',
 }
-# handle redirection
 
-exec {'redirection':
-  command  => 'sudo sed -i "s/server_name _;/server_name _;\n\trewrite ^\/redirect_me \/ permanent;/" /etc/nginx/sites-available/default',
-  provider => shell,
-}
-# Allow nginx through firewall
+# editing sites-enabled file
+file { '/etc/nginx/sites-enabled/default':
+        ensure  => present,
+        path    => '/etc/nginx/sites-enabled/default',
+        content =>
+'server {
+        listen 80 default_server;
+        listen [::]:80 default_server;
 
-exec { 'allow firewall':
-    command => 'ufw allow "NGINX Full"',
-    path    => '/usr/bin:/usr/sbin:/bin',
-  provider  => shell,
+        root /var/www/html;
+
+        index index.html index.htm index.nginx-debian.html;
+
+        server_name _;
+
+        # 404 error file
+        error_page 404 /error404.html;
+
+        location / {
+                # First attempt to serve request as file, then
+                # as directory, then fall back to displaying a 404.
+                try_files $uri $uri/ =404;
+        }
+
+        location /redirect_me {
+                return 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;
+        }
 }
+',
+}
+
+# editing sites-available
+
+file { '/etc/nginx/sites-available/default':
+        ensure  => present,
+        path    => '/etc/nginx/sites-available/default',
+        content =>
+'server {
+        listen 80 default_server;
+        listen [::]:80 default_server;
+
+        root /var/www/html;
+
+        index index.html index.htm index.nginx-debian.html;
+    
+        server_name _;
+
+        # 404 error file
+        error_page 404 /error404.html;
+    
+        location / {
+                try_files $uri $uri/ =404;
+        }
+
+        # redirecting user
+        location /redirect_me {
+                return 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;
+        }
+}
+',
+}
+
+#restarting nginx
 exec { 'restart nginx':
     command => 'sudo service nginx restart',
-    path    => '/usr/bin:/usr/sbin:/bin',
-  provider  => shell,
+    path    => ['/usr/bin', '/usr/sbin', '/usr/bin/env'],
 }
