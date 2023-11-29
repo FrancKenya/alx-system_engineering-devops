@@ -8,7 +8,7 @@ echo "Hello World!" > /var/www/html/index.html
 sudo cp /etc/nginx/sites-available/default /etc/nginx/sites-available/default.bak
 
 sudo sed -i '/loc \/ {/ {
-    N; s/loc \/ {\n/    loc \/ {\n        return 301 http:\/\/franc.com\/new-page;\n    }\n/ 
+    N; s/loc \/ {\n/    loc \/ {\n        return 301 https:\/\/www.youtube.com\/watch?v=QH2-TGUlwu4;\n\t}\n/ 
 }' /etc/nginx/sites-available/default
 
 ufw allow 'NGINX Full'
