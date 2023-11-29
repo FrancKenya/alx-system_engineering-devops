@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Configures Nginx server so that /redirect_me redirects to another page
-if ! nginx -v; then
+if ! nginx -v &>/dev/null; then
 sudo apt-get update -y
 sudo apt-get install -y nginx
 fi
@@ -11,5 +11,4 @@ replacement="server_name _;\n\tlocation \/redirect_me {\n\t\t return 301 https:\
 sed -i "s/server_name _;/$replacement/" /etc/nginx/sites-available/default
 
 sudo ufw allow 'NGINX Full'
-sudo nginx -t
 sudo service nginx restart
