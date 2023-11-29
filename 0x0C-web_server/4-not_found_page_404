@@ -11,15 +11,15 @@ echo "Hello World!" > /var/www/html/index.html
 str="server_name _;\n\tlocation \/redirect_me {\n\t\t return 301 https:\/\/www.youtube.com\/watch?v=QH2-TGUlwu4;\n\t}"
 sed -i "s/server_name _;/$str/" /etc/nginx/sites-available/default
 
-sudo sed -i '/http {/a \
-	error_page 404 /404_custom_error.html;\n\
-	location = /404_custom_error.html {\n\
-	internal;\n\
-	root /usr/share/nginx/html;\n\
-	return 404 "Ceci n'\''est pas une page";\n\
-}\n' /etc/nginx/nginx.conf
+echo "Ceci n'est pas une page" | sudo tee /var/www/html/404.html
+replacement="\\
+\terror_page 404 /404.html;\\
+\tlocation = /404.html {\\
+\t\troot /var/www/html;\\
+\t\tinternal;\\
+\t}"
+sudo sed -i '/listen 80 default_server;/a '"$replacement"'' /etc/nginx/sites-available/default
 
-echo "Ceci n'est pas une page" | sudo tee /usr/share/nginx/html/404_custom_error.html >/dev/null
-udo fw allow 'NGINX Full'
+sudo ufw allow 'NGINX Full'
 
 sudo service nginx restart
