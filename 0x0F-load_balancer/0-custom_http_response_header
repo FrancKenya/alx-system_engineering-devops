@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+# Configures web-02 as web-01 and configure Nginx so that its HTTP response contains a custom header
+sudo apt-get update
+sudo apt-get install -y nginx
+
+echo "Hello World!" | sudo tee /var/www/html/index.html
+
+hostname=$(hostname)
+cat <<EOL | sudo tee /etc/nginx/sites-available/default > /dev/null
+server {
+    listen 80 default_server;
+    listen [::]:80 default_server;
+
+    server_name _;
+    location / {
+        add_header X-Served-By $hostname;
+        # Othe Nginx configurations go here
+    }
+}
+EOL
+sudo service nginx restart
