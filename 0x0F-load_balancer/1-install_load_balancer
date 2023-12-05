@@ -1,6 +1,5 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # Configures HAproxy on 1 server to send traffic to other servers
-
 sudo apt-get update
 sudo apt-get install -y haproxy
 
