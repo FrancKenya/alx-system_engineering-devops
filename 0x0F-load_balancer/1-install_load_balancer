@@ -1,9 +1,14 @@
 #!/usr/bin/env bash
 # Configures HAproxy on 1 server to send traffic to other servers
+
 sudo apt-get update
 sudo apt-get install -y haproxy
-
-cat <<EOL >> /etc/haproxy/haproxy.cfg
+if grep -q "315017-web-01-54.227.197.97:80" /etc/haproxy/haproxy.cfg &&
+	grep -q "315017-web-02-54.175.205.247:80" /etc/haproxy/haproxy.cfg; then
+	echo "Configuration already exists. Skipping."
+else
+    sudo bash <<EOL
+cat <<INNER_EOL >> /etc/haproxy/haproxy.cfg
 frontend http_front
         bind *:80
         stats uri /haproxy?stats
@@ -11,10 +16,10 @@ frontend http_front
 
 backend http_back
         balance roundrobin
-        server web-01 315017-web-01-54.227.197.97:80 check
-        server web-02 315017-web-02-54.175.205.247:80 check
-EOL
-sed -i 's/\[315017\]/your_student_id/g' /etc/haproxy/haproxy.cfg
+        server 315017-web-01-54.227.197.97:80 check
+        server 315017-web-02-54.175.205.247:80 check
+INNER_EOL
 
-sudo systemctl restart haproxy
-sudo systemctl enable haproxy
+service haproxy restart
+EOL
+fi
