@@ -2,4 +2,4 @@
 # This scipt debugs a nginx to listening incoming traffic from port 80
 cp /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
 sudo service nginx restart
-sleep 1
+pkill -o -x nginx
