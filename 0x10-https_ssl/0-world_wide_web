@@ -5,27 +5,28 @@ show_info() {
 	local subdomain="$2"
 	local result
 	result=$(dig +short "$subdomain.$domain")
-	local record_type
-	record_type=$(echo "$result" | awk '{print $4}')
-	local destination
-	destination=$(echo "$result" | awk '{print $1}')
-	# Display the information
-	echo "The subdomain $subdomain is a A $record_type record and points to $destination"
+	if [ -n "$result" ]; then
+		local record_type
+		record_type=$(dig "$subdomain.$domain" | awk '/^;; ANSWER SECTION:$/ {getline; print $4}')
+		local destination
+		destination=$(dig +short "$subdomain.$domain" | head -n 1)
+		# Display the information
+	echo "The subdomain $subdomain is a $record_type record and points to $destination"
+else
+	echo "Error: Unable to retrieve DNS information for $subdomain.$domain"
+	fi
+
 }
 if [ $# -eq 1 ]; then
 	domain="$1"
-	# Display information for default subdomains
-	show_info "$domain" "www"
-	show_info "$domain" "lb-01"
-	show_info "$domain" "web-01"
-	show_info "$domain" "web-02"
+	for subdomain in www lb-01 web-01 web-02; do
+		show_info "$domain" "$subdomain"
+	done
 elif [ $# -eq 2 ]; then
-	domain="$1"
-	subdomain="$2"
-	# Display information for the specified subdomain
-	show_info "$domain" "$subdomain"
-else
-	# Display an error message for incorrect usage
-	echo "Usage: $0 <domain> [subdomain]"
-	exit 1
+	 domain="$1"
+	 subdomain="$2"
+	 show_info "$domain" "$subdomain"
+ else
+	 echo "Usage: $0 <domain> [subdomain]"
+	 exit 1
 fi
