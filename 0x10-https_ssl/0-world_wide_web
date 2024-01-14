@@ -1,19 +1,32 @@
 #!/usr/bin/env bash
 # A function that shows info about a subdomain
-
-display_info () {
-	if [ -z "$2" ]
-	then
-		arr="www lb-01 web-01 web-02"
-		for i in $arr
-		do
-			dig "$i.$1" | grep -A4 'ANSWER SECTION:'\
-				| awk 'NR== 2 {print "The subdomain", subdomain, "is a", $4,"record and points to", $5  }' subdomain="$i"
-		done
-	else
-		dig "$2.$1" | grep -A4 'ANSWER SECTION:'\
-			| awk 'NR==2 {print "The subdomain", arg1, "is a", $4,"record and points to", $5}' arg1="$2"
+show_info() {
+	local domain="$1"
+	local subdomain="$2"
+	local result
+	result=$(dig +short "$subdomain.$domain")
+	if [ -n "$result" ]; then
+		local record_type
+		record_type=$(dig "$subdomain.$domain" | awk '/^;; ANSWER SECTION:$/ {getline; print $4}')
+		local destination
+		destination=$(dig +short "$subdomain.$domain" | head -n 1)
+		# Display the information
+	echo "The subdomain $subdomain is a $record_type record and points to $destination"
+else
+	echo "Error: Unable to retrieve DNS information for $subdomain.$domain"
 	fi
-}
 
-display_info "$1" "$2"
+}
+if [ $# -eq 1 ]; then
+	domain="$1"
+	for subdomain in www lb-01 web-01 web-02; do
+		show_info "$domain" "$subdomain"
+	done
+elif [ $# -eq 2 ]; then
+	 domain="$1"
+	 subdomain="$2"
+	 show_info "$domain" "$subdomain"
+ else
+	 echo "Usage: $0 <domain> [subdomain]"
+	 exit 1
+fi
