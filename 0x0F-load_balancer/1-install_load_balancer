@@ -3,21 +3,22 @@
 
 sudo apt-get update
 sudo apt-get install -y haproxy
-if grep -q "315017-web-01-54.227.197.97:80" /etc/haproxy/haproxy.cfg &&
-	grep -q "315017-web-02-54.175.205.247:80" /etc/haproxy/haproxy.cfg; then
+if grep -q "315017-web-01 18.207.3.97:80" /etc/haproxy/haproxy.cfg &&
+	grep -q "315017-web-02 100.26.212.29:80" /etc/haproxy/haproxy.cfg; then
 	echo "Configuration already exists. Skipping."
 else
     sudo bash <<EOL
 cat <<INNER_EOL >> /etc/haproxy/haproxy.cfg
 frontend http_front
         bind *:80
-        stats uri /haproxy?stats
+        mode http
         default_backend http_back
 
 backend http_back
         balance roundrobin
-        server 315017-web-01-54.227.197.97:80 check
-        server 315017-web-02-54.175.205.247:80 check
+        mode http
+        server 315017-web-01 18.207.3.97:80 check
+        server 315017-web-02 100.26.212.29:80 check
 INNER_EOL
 
 service haproxy restart
