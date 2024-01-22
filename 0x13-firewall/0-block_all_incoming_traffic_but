@@ -2,11 +2,11 @@
 # Installs ufw and only opens 80. 443 and 22 ports
 
 sudo apt-get update -y
-sudo apt-get install ufw
+sudo apt-get install ufw -y
 sudo ufw default deny incoming
 sudo ufw default allow outgoing
-sudo ufw enable 80/tcp
-sudo ufw enable 443/tcp
-sudo ufw enable 22/tcp
-sudo ufw enable
+sudo ufw enable 80
+sudo ufw enable 443
+sudo ufw enable 22
+sudo ufw enable -y
 sudo ufw status
