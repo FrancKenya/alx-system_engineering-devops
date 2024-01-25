@@ -2,6 +2,21 @@
 MySQL is a relational database management system that uses structured query language for managing ang manipulating data
 This project focuses on setting up and configuring MySQL in the provided servers.
 It consists of executable bash scripts with to carry the requirements
+
+MySQL 5.7 installation guide:
+1. Download the MySQL repository by executing the following command
+wget https://dev.mysql.com/get/mysql-apt-config_0.8.12-1_all.deb
+2. Install the package with the following command
+sudo dpkg -i mysql-apt-config_0.8.12-1_all.deb
+3. Select ubuntu bionic, MySQL Server & Cluster,  mysql-5.7 and ok to finish
+4. Update APT repo using the following command
+sudo apt update
+5. To check whether MySQL 5.7 repository has been successfully installed, execute:
+sudo apt-cache policy mysql-server
+6. Install MySQL 5.7 and set root password:
+sudo apt install -f mysql-client=5.7* mysql-community-server=5.7* mysql-server=5.7*
+
+
 The project was guided by the following guidelines and objectives:
 Learning Objectives
 At the end of this project, you are expected to be able to explain to anyone, without the help of Google:
