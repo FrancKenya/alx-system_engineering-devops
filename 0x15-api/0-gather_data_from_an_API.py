@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-""" Python script to fetch and displays an employees to do list """
+""" Python script to fetch and displays an employees  TO DO list """
 
 import requests
 import sys
@@ -18,15 +18,14 @@ def gettodo_list(employee_id):
 
     response = requests.get(url)
     todo_resp = requests.get(todourl)
-    if response.status_code == 200:
-        employee_name = response.json()
-        todos = todo_resp.json()
-        titles = [todo.get("title") for todo in todos if todo.get("completed")]
-        header = f"Employee {employee_name[0].get('name')} is done with "\
-            f"tasks({len(titles)}/{len(todos)}):"
-        print(header)
-        for title in titles:
-            print(f"\t {title}")
+    employee_name = response.json()
+    todos = todo_resp.json()
+    titles = [todo.get("title") for todo in todos if todo.get("completed")]
+    header = f"Employee {employee_name[0].get('name')} is done with "\
+        f"tasks({len(titles)}/{len(todos)}):"
+    print(header)
+    for title in titles:
+        print(f"\t {title}")
 
 
 if __name__ == "__main__":
