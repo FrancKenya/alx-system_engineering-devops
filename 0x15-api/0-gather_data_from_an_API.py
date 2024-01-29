@@ -1,10 +1,11 @@
 #!/usr/bin/python3
+""" Python script to fetch and displays an employees to do list """
 
 import requests
 import sys
 
 
-def get_todo_list(employee_id):
+def gettodo_list(employee_id):
     """
     Fetches and displayes an employees TO DO list
     Args:
@@ -29,4 +30,4 @@ def get_todo_list(employee_id):
 
 
 if __name__ == "__main__":
-        get_todo_list(sys.argv[1])
+    gettodo_list(sys.argv[1])
