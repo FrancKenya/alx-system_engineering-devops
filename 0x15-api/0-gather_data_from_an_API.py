@@ -14,18 +14,19 @@ def gettodo_list(employee_id):
         None
     """
     url = f'https://jsonplaceholder.typicode.com/users?id={employee_id}'
-    todourl = f"https://jsonplaceholder.typicode.com/users?id={employee_id}"
+    todourl = f"https://jsonplaceholder.typicode.com/todos?userId={employee_id}"
 
     response = requests.get(url)
-    todo_resp = requests.get(todourl)
-    employee_name = response.json()
-    todos = todo_resp.json()
-    titles = [todo.get("title") for todo in todos if todo.get("completed")]
-    header = f"Employee {employee_name[0].get('name')} is done with "\
-        f"tasks({len(titles)}/{len(todos)}):"
-    print(header)
-    for title in titles:
-        print(f"\t {title}")
+    if response.status_code == 200:
+        todo_resp = requests.get(todourl)
+        employee_name = response.json()
+        todos = todo_resp.json()
+        titles = [todo.get("title") for todo in todos if todo.get("completed")]
+        header = f"Employee {employee_name[0].get('name')} is done with "\
+                f"tasks({len(titles)}/{len(todos)}):"
+        print(header)
+        for title in titles:
+            print(f"\t {title}")
 
 
 if __name__ == "__main__":
