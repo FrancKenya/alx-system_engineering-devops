@@ -1,9 +1,9 @@
 #!/usr/bin/python3
 """ Python script to export data in CSV format """
 
+import csv
 import requests
 import sys
-import csv
 
 
 def convertto_csv(employee_id):
