@@ -5,7 +5,6 @@ Python script fetches and exports TODO list for all employees in JSON format.
 
 import json
 import requests
-import csv 
 
 
 def export_all_json():
