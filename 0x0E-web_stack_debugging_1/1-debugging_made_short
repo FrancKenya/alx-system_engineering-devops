@@ -1,5 +1,3 @@
 #!/usr/bin/env bash
 # This script is shortened and used to debug nginx to start listening for incoming traffic on port 80
-cp /etc/nginx/sites-available/default  /etc/nginx/sites-available/default
 service nginx restart
-pkill -o nginx
