@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# A function that shows info about a subdomain
+# A function that displays infomation about a subdomain
 show_info() {
 	local domain="$1"
 	local subdomain="$2"
