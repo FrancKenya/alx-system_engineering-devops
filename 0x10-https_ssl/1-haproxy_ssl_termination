@@ -32,18 +32,17 @@ defaults
 	errorfile 502 /etc/haproxy/errors/502.http
 	errorfile 503 /etc/haproxy/errors/503.http
 	errorfile 504 /etc/haproxy/errors/504.http
-
-frontend http
+frontend http_front
         bind *:80
         mode http
-        default_backend default_server
+        default_backend http_back
 
 frontend https
         bind *:443 ssl crt /etc/letsencrypt/archive/www.learnsoftware.tech/www.learnsoftware.tech.pem
-        default_backend default_server
+        default_backend http_back
 
-backend default_server
+backend http_back
         balance roundrobin
         redirect scheme https if !{ ssl_fc }
-        server 315017-web-01 18.207.3.97:80 check
-        server 315017-web-02 100.26.212.29:80 check    
+        server 315017-web-01 54.237.97.75:80 check
+        server 315017-web-02 100.25.144.98:80 check
