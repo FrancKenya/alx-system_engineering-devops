@@ -16,6 +16,8 @@ sudo apt-cache policy mysql-server
 6. Install MySQL 5.7 and set root password:
 sudo apt install -f mysql-client=5.7* mysql-community-server=5.7* mysql-server=5.7*
 
+OR use:
+sudo wget -O mysql57 https://raw.githubusercontent.com/nuuxcode/alx-system_engineering-devops/master/scripts/mysql57 && sudo chmod +x mysql57 &&  sudo ./mysql57
 
 The project was guided by the following guidelines and objectives:
 Learning Objectives
