@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """
-Python script fetches and exports TODO list for all employees in JSON format.
+A Python script fetches and exports TODO list for all employees in JSON format.
 """
 
 import json
