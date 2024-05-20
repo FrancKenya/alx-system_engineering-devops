@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-""" Python script to fetch and displays an employees  TO DO list """
+""" A fuction that fetches and displays an employees  TO DO list """
 
 import requests
 import sys
