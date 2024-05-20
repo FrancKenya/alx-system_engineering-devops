@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-""" Python script that exports TO DO data to JSON """
+""" A python script that exports TO DO data to JSON """
 
 import json
 import requests
