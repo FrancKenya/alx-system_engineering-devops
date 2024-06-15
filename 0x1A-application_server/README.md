@@ -31,6 +31,7 @@ pip install flask
 
 ##  Setting up production with Gunicorn
 We then set up a production using Gunicorn
+pip install gunicorn
 
 ## Serve a page with Nginx
 ## Add a route with query parameters
