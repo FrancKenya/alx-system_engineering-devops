@@ -1,5 +1,4 @@
 #!/usr/bin/python3
-
 """
 A function that  queries the reddit api and returns the number of
 subscribers for a given subreddit

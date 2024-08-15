@@ -1,5 +1,4 @@
 #!/usr/bin/python3
-
 """
 A function that queries the reddit API and prints the title of the first
 hot ports listed for a given subreddit
