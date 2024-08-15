@@ -1,15 +1,19 @@
 #!/usr/bin/python3
 
-""" A function that queries the reddit API and prints the title of the first
-hot ports listed for a subreddit """
+"""
+A function that queries the reddit API and prints the title of the first
+hot ports listed for a subreddit
+"""
 
 import requests
 
 
 def top_ten(subreddit):
-    """Function printing titles of 10 hot ports
+    """
+    Function printing titles of 10 hot ports
     Args:
-        subreddit: Contains the hot ports being listed """
+        subreddit: Contains the hot ports being listed
+    """
 
     url = f"https://www.reddit.com/r/{subreddit}/hot.json"
     headers = {'User-Agent': 'FirstRedditApp/1.0 (francisgwaihiga@gmail.com)'}
