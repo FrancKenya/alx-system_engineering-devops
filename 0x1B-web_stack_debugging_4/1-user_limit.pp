@@ -1,13 +1,12 @@
 # A Puppet manifest to update the OS configuration so that the holberton user can open files without errors
 
-file_line { 'increase nofile limit to 50000':
-  path  => '/etc/security/limits.conf',
-  line  => '*               -       nofile          50000',
-  match => '^\*\s+-\s+nofile\s+\d+',
+exec {'replace-1':
+  provider => shell,
+  command  => 'sudo sed -i "s/nofile 5/nofile 50000/" /etc/security/limits.conf',
+  before   => Exec['replace-2'],
 }
 
-file_line { 'increase nofile limit to 40000':
-  path  => '/etc/security/limits.conf',
-  line  => '*               soft    nofile          40000',
-  match => '^\*\s+soft\s+nofile\s+\d+',
+exec {'replace-2':
+  provider => shell,
+  command  => 'sudo sed -i "s/nofile 4/nofile 40000/" /etc/security/limits.conf',
 }
